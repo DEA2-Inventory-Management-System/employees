@@ -32,17 +32,17 @@ public class EmployeeController {
     {
         return empService.deleteAllEmployee();
     }
-    @DeleteMapping("/employee/{id}")
-    public ResponseEntity<Object> deleteEmployeeById(@PathVariable("id") int id) {
-        return empService.deleteEmployeeById(id);
+    @DeleteMapping("/employee/{empid}")
+    public ResponseEntity<Object> deleteEmployeeById(@PathVariable("empid") int empid) {
+        return empService.deleteEmployeeById(empid);
     }
-    @PutMapping("/employee/{id}")
-    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("id") int id, @RequestBody EmployeeDto employeeDto)
+    @PutMapping("/employee/{empid}")
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("empid") int empid, @RequestBody EmployeeDto employeeDto)
     {
-        return empService.updateId( id,   employeeDto);
+        return empService.updateId( empid,   employeeDto);
     }
-    private EmployeeDto getEmpRec(int id) {
-        Optional<EmployeeDto> empObj = EmployeeRepository.findById(id);
+    private EmployeeDto getEmpRec(int empid) {
+        Optional<EmployeeDto> empObj = EmployeeRepository.findById(empid);
         if (empObj.isPresent()) {
             return empObj.get();
         }
