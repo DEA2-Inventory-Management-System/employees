@@ -15,7 +15,7 @@ public class EmployeeDto {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int empid;
     private String name;
     private String address;
     private String phone;

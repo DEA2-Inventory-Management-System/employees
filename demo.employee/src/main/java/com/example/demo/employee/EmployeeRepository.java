@@ -6,5 +6,7 @@ import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<EmployeeDto,Integer> {
 
-    static Optional<EmployeeDto> findById(int id);
+    static Optional<EmployeeDto> findById(int empid) {
+        return null;
+    }
 }
