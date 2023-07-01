@@ -1,8 +1,11 @@
 package com.example.demo.employee;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
 @Entity
 @Data
 @Getter
@@ -11,15 +14,28 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 
-public class EmployeeDto {
+public class Employee {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int empid;
+
+    @Column
     private String name;
-    private String address;
-    private String phone;
+
+    @Column
     private int age;
-    private String dob;
+
+    @Column
+    private String address;
+
+    @Column
+    private String phone;
+
+    @Column
     private String nic;
+
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
+    private LocalDate DOB;
+
 }
