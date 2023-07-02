@@ -12,37 +12,33 @@ import java.util.Optional;
 public class EmployeeController {
 
     @Autowired
-    EmployeeService empService;
+    EmployeeService employeeService;
 
     @PostMapping("/employee")
-    private EmployeeDto saveRequest(@RequestBody EmployeeDto employeeDto)
+    private Employee saveRequest(@RequestBody Employee employee)
     {
-        empService.saveRequest(employeeDto);
-        return employeeDto;
+        employeeService.saveEmployee(employee);
+        return employee;
     }
 
     @GetMapping("/employee")
-    private List<EmployeeDto> getAllEmployeeRequests()
+    private List<Employee> getEmployee()
     {
-        return empService.getAllEmployeeRequests();
+        return employeeService.getEmployee();
     }
 
-    @DeleteMapping("/employee")
-    private ResponseEntity<Object> deleteAllEmployee()
-    {
-        return empService.deleteAllEmployee();
-    }
+
     @DeleteMapping("/employee/{empid}")
-    public ResponseEntity<Object> deleteEmployeeById(@PathVariable("empid") int empid) {
-        return empService.deleteEmployeeById(empid);
+    private ResponseEntity<Object> deleteEmployee(@PathVariable("empid") int empid) {
+        return employeeService.deleteEmployeeById(empid);
     }
     @PutMapping("/employee/{empid}")
-    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("empid") int empid, @RequestBody EmployeeDto employeeDto)
+    private ResponseEntity<Employee> updateEmployee(@PathVariable int empid, @RequestBody Employee employee)
     {
-        return empService.updateId( empid,   employeeDto);
+        return employeeService.updateId( empid, employee);
     }
-    private EmployeeDto getEmpRec(int empid) {
-        Optional<EmployeeDto> empObj = EmployeeRepository.findById(empid);
+    private Employee getEmpRec(int empid) {
+        Optional<Employee> empObj = EmployeeRepository.findById(empid);
         if (empObj.isPresent()) {
             return empObj.get();
         }
