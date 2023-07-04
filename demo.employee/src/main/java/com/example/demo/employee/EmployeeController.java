@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -28,20 +28,16 @@ public class EmployeeController {
     }
 
 
-    @DeleteMapping("/employee/{empid}")
-    private ResponseEntity<Object> deleteEmployee(@PathVariable("empid") int empid) {
-        return employeeService.deleteEmployeeById(empid);
+    @DeleteMapping("/employee/{id}")
+    private ResponseEntity<Object> deleteEmployee(@PathVariable("id") int empid){
+        return employeeService.deleteByEmployeeId(empid);
     }
+
     @PutMapping("/employee/{empid}")
-    private ResponseEntity<Employee> updateEmployee(@PathVariable int empid, @RequestBody Employee employee)
+    private ResponseEntity<Object> updateEmployee(@PathVariable int empid, @RequestBody Employee employee)
     {
-        return employeeService.updateId( empid, employee);
+        return employeeService.updateEmployee(empid, employee);
+
     }
-    private Employee getEmpRec(int empid) {
-        Optional<Employee> empObj = EmployeeRepository.findById(empid);
-        if (empObj.isPresent()) {
-            return empObj.get();
-        }
-        return null;
-    }
+
 }
