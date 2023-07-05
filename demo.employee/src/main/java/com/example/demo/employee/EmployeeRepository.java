@@ -1,12 +1,10 @@
 package com.example.demo.employee;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.util.Optional;
 
-public interface EmployeeRepository extends JpaRepository<EmployeeDto,Integer> {
+public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
-    static Optional<EmployeeDto> findById(int empid) {
-        return null;
+
     }
-}

@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,49 +14,47 @@ public class EmployeeService {
     EmployeeRepository employeeRepository;
 
 
-    public void saveEmployee(Employee employee) {
+    public void saveEmployee(Employee employee)
+    {
         employeeRepository.save(employee);
     }
 
 
-    public List<Employee> getEmployee() {
+    public List<Employee> getEmployee()
+    {
         return employeeRepository.findAll();
     }
 
-    public ResponseEntity<Object> deleteByEmployeeId(int empid) {
+    public ResponseEntity<Object> deleteByEmployeeId(int id) {
         try {
             //check if employee exist in database
-            Optional<Employee> employee = employeeRepository.findAllById(empid);
-            if (employee != null)
-                employeeRepository.deleteById(empid);
-            return new ResponseEntity<>(HttpStatus.OK);
+            Optional<Employee> emplyee = employeeRepository.findById(id);
+            if (emplyee != null) {
+                employeeRepository.deleteById(id);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-    } catch(
-    Exception e)
-
-    {
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-}
-
-
-    public ResponseEntity<Object> updateEmployee(int empid, Employee employee) {
-        Optional<Employee> employeeObj = employeeRepository.findById(empid);
+    public ResponseEntity<Object> updateEmployee(int id, Employee employee) {
+        Optional<Employee> employeeObj = employeeRepository.findById(id);
         Employee newEmployee = employeeObj.get();
-
         if (employeeObj != null) {
+            newEmployee.setAge(employee.getAge());
+            newEmployee.setDOB(employee.getDOB());
             newEmployee.setName(employee.getName());
             newEmployee.setAddress(employee.getAddress());
             newEmployee.setPhone(employee.getPhone());
-            newEmployee.setAge(employee.getAge());
-            newEmployee.setDOB(employee.getDOB());
-            newEmployee.setNic(employee.getNic());
-            return new ResponseEntity<>(EmployeeRepository.save(newEmployee), HttpStatus.OK);
+            return new ResponseEntity<>(employeeRepository.save(newEmployee), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+
+}
+
 }

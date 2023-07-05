@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3006")
 @RestController
 public class EmployeeController {
 
@@ -29,14 +29,16 @@ public class EmployeeController {
 
 
     @DeleteMapping("/employee/{id}")
-    private ResponseEntity<Object> deleteEmployee(@PathVariable("id") int empid){
-        return employeeService.deleteByEmployeeId(empid);
+    private ResponseEntity<Object> deleteEmployee(@PathVariable("id") int id)
+    {
+        return employeeService.deleteByEmployeeId(id);
     }
 
-    @PutMapping("/employee/{empid}")
-    private ResponseEntity<Object> updateEmployee(@PathVariable int empid, @RequestBody Employee employee)
+    @PutMapping("/employee/{id}")
+    private ResponseEntity<Object> updateEmployee(@PathVariable int id, @RequestBody Employee employee)
     {
-        return employeeService.updateEmployee(empid, employee);
+        return employeeService.updateEmployee(id, employee);
+
 
     }
 
